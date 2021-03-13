@@ -1,0 +1,28 @@
+syntax = "proto3";
+option java_package = "com.grpc.proto.vault";
+
+service vault{
+  rpc put(Map) returns (Value);
+  rpc get(Key) returns (Map);
+  rpc getAllKeys(Empty) returns (stream Key);
+}
+
+message Map{
+  string key = 1;
+  int32 value = 2;
+}
+
+message Key{
+  string key = 1;
+}
+
+message Value {
+  int32 value = 1;
+}
+
+message GetResponse {
+  int32 value = 1;
+}
+
+message Empty{
+}
