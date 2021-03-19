@@ -92,29 +92,29 @@ public final class vaultGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<com.grpc.proto.vault.Vault.Empty,
-      com.grpc.proto.vault.Vault.Key> getGetAllKeysMethod;
+      com.grpc.proto.vault.Vault.Keys> getGetAllKeysMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "getAllKeys",
       requestType = com.grpc.proto.vault.Vault.Empty.class,
-      responseType = com.grpc.proto.vault.Vault.Key.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      responseType = com.grpc.proto.vault.Vault.Keys.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<com.grpc.proto.vault.Vault.Empty,
-      com.grpc.proto.vault.Vault.Key> getGetAllKeysMethod() {
-    io.grpc.MethodDescriptor<com.grpc.proto.vault.Vault.Empty, com.grpc.proto.vault.Vault.Key> getGetAllKeysMethod;
+      com.grpc.proto.vault.Vault.Keys> getGetAllKeysMethod() {
+    io.grpc.MethodDescriptor<com.grpc.proto.vault.Vault.Empty, com.grpc.proto.vault.Vault.Keys> getGetAllKeysMethod;
     if ((getGetAllKeysMethod = vaultGrpc.getGetAllKeysMethod) == null) {
       synchronized (vaultGrpc.class) {
         if ((getGetAllKeysMethod = vaultGrpc.getGetAllKeysMethod) == null) {
           vaultGrpc.getGetAllKeysMethod = getGetAllKeysMethod = 
-              io.grpc.MethodDescriptor.<com.grpc.proto.vault.Vault.Empty, com.grpc.proto.vault.Vault.Key>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              io.grpc.MethodDescriptor.<com.grpc.proto.vault.Vault.Empty, com.grpc.proto.vault.Vault.Keys>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "vault", "getAllKeys"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   com.grpc.proto.vault.Vault.Empty.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.grpc.proto.vault.Vault.Key.getDefaultInstance()))
+                  com.grpc.proto.vault.Vault.Keys.getDefaultInstance()))
                   .setSchemaDescriptor(new vaultMethodDescriptorSupplier("getAllKeys"))
                   .build();
           }
@@ -167,7 +167,7 @@ public final class vaultGrpc {
     /**
      */
     public void getAllKeys(com.grpc.proto.vault.Vault.Empty request,
-        io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Key> responseObserver) {
+        io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Keys> responseObserver) {
       asyncUnimplementedUnaryCall(getGetAllKeysMethod(), responseObserver);
     }
 
@@ -189,10 +189,10 @@ public final class vaultGrpc {
                   this, METHODID_GET)))
           .addMethod(
             getGetAllKeysMethod(),
-            asyncServerStreamingCall(
+            asyncUnaryCall(
               new MethodHandlers<
                 com.grpc.proto.vault.Vault.Empty,
-                com.grpc.proto.vault.Vault.Key>(
+                com.grpc.proto.vault.Vault.Keys>(
                   this, METHODID_GET_ALL_KEYS)))
           .build();
     }
@@ -235,8 +235,8 @@ public final class vaultGrpc {
     /**
      */
     public void getAllKeys(com.grpc.proto.vault.Vault.Empty request,
-        io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Key> responseObserver) {
-      asyncServerStreamingCall(
+        io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Keys> responseObserver) {
+      asyncUnaryCall(
           getChannel().newCall(getGetAllKeysMethod(), getCallOptions()), request, responseObserver);
     }
   }
@@ -275,9 +275,8 @@ public final class vaultGrpc {
 
     /**
      */
-    public java.util.Iterator<com.grpc.proto.vault.Vault.Key> getAllKeys(
-        com.grpc.proto.vault.Vault.Empty request) {
-      return blockingServerStreamingCall(
+    public com.grpc.proto.vault.Vault.Keys getAllKeys(com.grpc.proto.vault.Vault.Empty request) {
+      return blockingUnaryCall(
           getChannel(), getGetAllKeysMethod(), getCallOptions(), request);
     }
   }
@@ -315,6 +314,14 @@ public final class vaultGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.grpc.proto.vault.Vault.Keys> getAllKeys(
+        com.grpc.proto.vault.Vault.Empty request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetAllKeysMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PUT = 0;
@@ -348,7 +355,7 @@ public final class vaultGrpc {
           break;
         case METHODID_GET_ALL_KEYS:
           serviceImpl.getAllKeys((com.grpc.proto.vault.Vault.Empty) request,
-              (io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Key>) responseObserver);
+              (io.grpc.stub.StreamObserver<com.grpc.proto.vault.Vault.Keys>) responseObserver);
           break;
         default:
           throw new AssertionError();

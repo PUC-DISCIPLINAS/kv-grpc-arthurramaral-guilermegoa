@@ -4,6 +4,7 @@ import com.grpc.proto.vault.vaultGrpc;
 import com.grpc.proto.vault.Vault.Empty;
 import com.grpc.proto.vault.Vault.Map;
 import com.grpc.proto.vault.Vault.Key;
+import com.grpc.proto.vault.Vault.Keys;
 import com.grpc.proto.vault.Vault.Value;
 
 import io.grpc.ManagedChannel;
@@ -20,7 +21,7 @@ public class GRPCClient {
         ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 9089).usePlaintext().build();
         int option = 0;
         String key;
-        int value;
+        String value;
 
         vaultGrpc.vaultBlockingStub prodStub = vaultGrpc.newBlockingStub(channel);
 
@@ -33,7 +34,7 @@ public class GRPCClient {
                     System.out.println("Enter with a  key");
                     key = scanner.next();
                     System.out.println("Enter with a value.");
-                    value = scanner.nextInt();
+                    value = scanner.next();
 
                     Map reqPut = Map.newBuilder().setKey(key).setValue(value).build();
                     Value resPut = prodStub.put(reqPut);
@@ -53,19 +54,19 @@ public class GRPCClient {
                     System.out.println("Todos as chaves:");
                     Empty reqGetAll = Empty.newBuilder().build();
 
-                    Iterator<Key> resGetAll = prodStub.getAllKeys(reqGetAll);
+                    Keys resGetAll = prodStub.getAllKeys(reqGetAll);
 
-                    do {
-                        System.out.println(resGetAll.next());
-                    } while(resGetAll.hasNext());
-                    
+                    for (int i = 0; i < resGetAll.getKeyCount(); i++) {
+                        System.out.println(resGetAll.getKey(i));
+                    }
+
                     break;
                 default:
                     break;
             }
         } while (option != 0);
 
-
+        channel.shutdownNow();
     }
 
     public static void menu() {
@@ -73,6 +74,7 @@ public class GRPCClient {
         System.out.println("1 - Put a key and value.");
         System.out.println("2 - Get a value.");
         System.out.println("3 - Get all values.");
+        System.out.println("0 - Exit.");
         System.out.println("========================");
     }
 }
